@@ -1,4 +1,7 @@
 configurationset:
   - configuration:
+      name: postgresql-01_config
+      uri: postgresql://ep-purple-star-a257aoui-pooler.eu-central-1.aws.neon.tech/neondb?user=neondb_owner&password=npg_GjrkRsZw3CQ5
+  - configuration:
       name: postgresql_config
       uri: postgresql://ep-purple-star-a257aoui-pooler.eu-central-1.aws.neon.tech/neondb?user=neondb_owner&password=npg_GjrkRsZw3CQ5

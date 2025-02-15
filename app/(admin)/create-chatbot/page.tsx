@@ -18,12 +18,13 @@ function CreateChatbot() {
                 <Input
                     type='text'
                     placeholder='Enter Chatbot Name'
-                    className='max-w-lg'
+                    className='max-w-lg md:w-48 md:bg-amber-50'
                     required />
 
                 <Button>Create chatbot</Button>
 
             </form>
+            <p className='text-gray-400  text-sm'>Example: Customer Support Chatbot</p>
         </div>
     );
 }

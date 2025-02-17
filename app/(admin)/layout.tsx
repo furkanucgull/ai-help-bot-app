@@ -12,7 +12,7 @@ function AdminLayout({
         <div className='flex flex-col flex-1'>
 
             <Header />
-            <div className='flex flex-col flex-1 lg:flow-row bg-gray-100' >
+            <div className='flex flex-row flex-1 lg:flow-col bg-gray-100' >
                 <Sidebar />
                 <div className='flex-1 flex justify-center lg:justify-start items-start max-w-5xl mx-auto w-full'>
                     {children}

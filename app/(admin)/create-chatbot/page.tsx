@@ -1,4 +1,5 @@
 "use client";
+
 import Avatar from '@/components/Avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input";
@@ -6,15 +7,16 @@ import { CREATE_CHATBOT } from '@/graphql/mutations/mutations';
 import { useMutation } from '@apollo/client';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-
-
 import React, { FormEvent, useState } from 'react';
 
 function CreateChatbot() {
     const { user } = useUser();
     const [name, setName] = useState("");
+
     const router = useRouter();
     const createdAt = new Date().toISOString();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [CreateChatbot, { data, loading, error }] = useMutation(
         CREATE_CHATBOT,
         {

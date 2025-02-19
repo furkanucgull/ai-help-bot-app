@@ -1,7 +1,7 @@
 import { REMOVE_CHARACTERISTIC } from '@/graphql/mutations/mutations';
 import { ChatbotCharacteristic } from '@/types/types';
 import { useMutation } from '@apollo/client';
-import { OctagonX } from 'lucide-react';
+import { BadgeX } from 'lucide-react';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -14,7 +14,7 @@ function Characteristic({ characteristic }: { characteristic: ChatbotCharacteris
         try {
             await removeCharacteristic({
                 variables: {
-                    id: characteristic.id,
+                    characteristicId: characteristic.id,
                 }
             });
         } catch (error) {
@@ -22,9 +22,11 @@ function Characteristic({ characteristic }: { characteristic: ChatbotCharacteris
         }
     };
     return (
-        <li className='relative p-8 bg-white border rounded-md mt-4'>
+        <li
+            key={characteristic.id}
+            className='relative p-8 bg-white border rounded-md mt-4'>
             {characteristic.content}
-            <OctagonX
+            <BadgeX
                 onClick={() => {
                     const promise = handleRemoveCharacteristic();
                     toast.promise(promise, {

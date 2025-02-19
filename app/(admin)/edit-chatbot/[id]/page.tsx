@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import Characteristic from "@/components/Characteristic";
-import { ADD_CHARACTERISTIC, DELETE_CHATBOT } from "@/graphql/mutations/mutations";
+import { ADD_CHARACTERISTIC, DELETE_CHATBOT, UPDATE_CHATBOT } from "@/graphql/mutations/mutations";
 import { redirect } from "next/navigation";
 
 const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
@@ -19,11 +19,16 @@ const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
     const [url, setUrl] = useState<string>("");
     const [newCharacteristic, setnewCharacteristic] = useState<string>("");
     const [chatbotName, setChatbotname] = useState<string>("");
+    //ADD-CHATBOT
     const [deleteChatbot] = useMutation(DELETE_CHATBOT, {
         refetchQueries: ["GetChatbotById"],
         awaitRefetchQueries: true,
     });
     const [addCharacteristic] = useMutation(ADD_CHARACTERISTIC, {
+        refetchQueries: ["GetChatbotById"]
+    });
+    //UPDATE-CHATBOT
+    const [updateChatbot] = useMutation(UPDATE_CHATBOT, {
         refetchQueries: ["GetChatbotById"]
     });
     const { data, loading, error } = useQuery<GetChatbotByIdResponse, GetChatbotByIdVariables>(
@@ -58,6 +63,24 @@ const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
         } catch (error) {
             console.log("Failed to add characteristic:", error);
 
+        }
+    };
+    const handleUpdateChatbot = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const promise = updateChatbot({
+                variables: {
+                    id,
+                    name: chatbotName,
+                },
+            });
+            toast.promise(promise, {
+                loading: "Updating...",
+                success: "Chatbot Name Succesfully Updated!",
+                error: "Failed to update chatbot.",
+            });
+        } catch (error) {
+            console.log("Failed to update chatbot:", error);
         }
     };
 
@@ -118,7 +141,7 @@ const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
                 <div className="flex space-x-4">
                     <Avatar seed={chatbotName} />
                     <form
-                        //onSubmit={handleUpdateChatbot}
+                        onSubmit={handleUpdateChatbot}
                         className="flex flex1 space-x-2 items-center">
                         <Input
                             onChange={(e) => setChatbotname(e.target.value)}
@@ -131,9 +154,9 @@ const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
                 </div>
                 <h2 className="text-xl font-bold mt-10">Here is what your AI knows...</h2>
                 <p>Your chatbot is equipped with the following information to assist you in your conversations with your customers & users </p>
-                <div>
+                <div className=" bg-gray-200 p-5 rounded-md mt-5 md:p-5">
 
-                    <form className=""
+                    <form className="flex space-x-2 mb-5"
                         onSubmit={e => {
                             e.preventDefault();
                             handleAddCharacteristic(newCharacteristic);
@@ -151,7 +174,9 @@ const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
                     <ul className="flex flex-wrap-reverse gap-5">
                         {
                             data?.chatbots?.chatbot_characteristics?.map((characteristic) => (
-                                <Characteristic characteristic={characteristic} key={characteristic.id}>
+                                <Characteristic
+                                    key={characteristic.id}
+                                    characteristic={characteristic} >
 
                                 </Characteristic>
                             ))

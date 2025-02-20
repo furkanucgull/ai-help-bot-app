@@ -44,17 +44,21 @@ export const GET_USER_CHATBOTS = gql`
   query GetUserChatbots {
     chatbotsList {
       id
-      name
-      clerk_user_id
       created_at
+      clerk_user_id
       name
       chat_sessions {
-        id
-        created_at
         guest_id
-        messages {
+        id
+        guests {
+          name
           id
+          email
+        }
+        messages {
           content
+          sender
+          id
           created_at
         }
       }

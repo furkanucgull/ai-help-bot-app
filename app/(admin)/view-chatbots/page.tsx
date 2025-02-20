@@ -51,7 +51,7 @@ async function ViewChatbots() {
                 {sortedChatbotsByUser.map((chatbot) => (
                     <Link key={chatbot.id} href={`/edit-chatbot/${chatbot.id}`}>
                         <li className="relative p-10 border rounded-md max-w-3xl bg-white">
-                            <div>
+                            <div className=" flex justify-between items-center">
                                 <div className="flex items-center space-x-4">
                                     <Avatar seed={chatbot.name} />
                                     <h2 className="text-xl font-bold">{chatbot.name}</h2>
@@ -59,6 +59,25 @@ async function ViewChatbots() {
                                 <p className="absolute top-5 right-5 text-xs text-gray-400">
                                     Created : {new Date(chatbot.created_at).toLocaleString()}
                                 </p>
+                            </div>
+                            <hr className="mt-2" />
+                            <div className="grid grid-cols-2 gap10 md:gap-5 p-5">
+                                <h3 className="italic">Characteristics: </h3>
+                                <ul className="text-xs">
+                                    {!chatbot.chatbot_characteristics.length && (
+                                        <p> No Characteristics available</p>
+                                    )}
+                                    {
+                                        chatbot.chatbot_characteristics.map((characteristic) => (
+                                            <li key={characteristic.id} className="list-disc break-words ">
+                                                {characteristic.content}
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                                <h3 className="italic"> Number of Sessions</h3>
+                                <p> {chatbot.chat_sessions.length}</p>
+
                             </div>
                         </li>
                     </Link>

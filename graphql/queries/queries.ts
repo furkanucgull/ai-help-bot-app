@@ -4,18 +4,36 @@ export const GET_CHATBOTS_BY_USER = gql`
   query GetChatbotsByUser {
     chatbotsList {
       id
+      name
       clerk_user_id
       created_at
       name
       chatbot_characteristics {
+        id
+        created_at
+        content
         chatbots {
+          id
           chat_sessions {
+            id
             created_at
             guest_id
-            guests {
-              name
+            messages {
+              id
+              content
+              created_at
             }
           }
+        }
+      }
+      chat_sessions {
+        id
+        created_at
+        guest_id
+        messages {
+          id
+          content
+          created_at
         }
       }
     }

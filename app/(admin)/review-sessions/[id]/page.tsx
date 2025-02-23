@@ -4,7 +4,6 @@ import { serverClient } from '@/lib/server/serverClient';
 import { GetChatSessionMessagesResponse, GetChatSessionMessagesVariables } from '@/types/types';
 import { auth } from '@clerk/nextjs/server';
 import React from 'react';
-import { use } from "react";
 
 const ReviewSession = async ({ params }: { params: Promise<{ id: string; }>; }) => {
     const { userId } = await auth();
@@ -13,7 +12,7 @@ const ReviewSession = async ({ params }: { params: Promise<{ id: string; }>; }) 
 
     const { data: {
         chat_sessions: {
-            id: chatSessionId,
+            //id: chatSessionId,
             created_at,
             messages,
             chatbots: { name },

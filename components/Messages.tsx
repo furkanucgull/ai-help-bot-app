@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Message } from '@/types/types';
 import { usePathname } from 'next/navigation';

@@ -56,7 +56,7 @@ const ChatBotSessions = ({ chatbots }: { chatbots: Chatbot[]; }) => {
                                                     <p className=" text-lg font-bold"> {session.guests?.name || "Anonymous"} </p>
                                                     <p className="text-sm font-light"> {session.guests?.email || "No email provided"} </p>
                                                     <p className="absolute top-5 right-5 text-sm">
-                                                        {/* <TimeAgo date={new Date(session.created_at)} locale="en" /> */}
+                                                        <TimeAgo date={new Date(session.created_at)} locale="en" />
 
                                                     </p>
                                                 </Link>

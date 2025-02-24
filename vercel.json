@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://ai-help-bot-app.vercel.app"
+          "value": "*"
         },
         {
           "key": "Access-Control-Allow-Credentials",

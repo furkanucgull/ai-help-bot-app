@@ -12,10 +12,11 @@ import { GET_CHATBOT_BY_ID } from "@/graphql/queries/queries";
 import { GetChatbotByIdResponse, GetChatbotByIdVariables } from "@/types/types";
 import Characteristic from "@/components/Characteristic";
 import { ADD_CHARACTERISTIC, DELETE_CHATBOT, UPDATE_CHATBOT } from "@/graphql/mutations/mutations";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 
-const EditChatbot = ({ params: { id } }: { params: { id: string; }; }) => {
-
+const EditChatbot = () => {
+    const params = useParams();
+    const id = params.id as string;
     const [url, setUrl] = useState<string>("");
     const [newCharacteristic, setnewCharacteristic] = useState<string>("");
     const [chatbotName, setChatbotname] = useState<string>("");

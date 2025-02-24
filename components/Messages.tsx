@@ -31,7 +31,7 @@ const Messages = ({ messages, chatbotName }: {
                     {isReviewsPage && (
                         <p className='absolute -bottom-5 text-xs text-gray-300'> sent {new Date(message.created_at).toLocaleString()}</p>
                     )}
-                    <div className={`chat-image avatar w-10 ${!isSender && "-mr-4"} `}>
+                    <div key={message.id} className={`chat-image avatar w-10 ${!isSender && "-mr-4"} `}>
                         {
                             isSender ? (
                                 <Avatar

@@ -41,7 +41,12 @@ function ChatbotPage() {
     const [chatId, setChatId] = useState("");
     const [loading, setLoading] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
-
+    const convertToValidName = (name: string) => {
+        return name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_-]/g, "");
+    };
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -118,7 +123,7 @@ function ChatbotPage() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    name: name,
+                    name: validName,
                     chat_session_id: Number(chatId),
                     chatbot_id: id,
                     content: message,
@@ -139,6 +144,10 @@ function ChatbotPage() {
             console.log("Error sending message:", error);
         }
     };
+
+
+    const validName = convertToValidName(name);
+
     return (
         <div className="chat-container flex flex-col h-screen w-full bg-gray-100">
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
